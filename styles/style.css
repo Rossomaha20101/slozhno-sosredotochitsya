@@ -3,7 +3,7 @@
   /* сохраните в разметке и стилях класс page. На его основе работает скрипт. */
   margin: 0 auto;
   color: var(--text-color);
-  font: normal 400 18px/1.3 var(--main-font, serif);
+  font: normal 400 18px/1.3 var(--main-font, monospace);
   background: var(--bg-color) var(--bg-image) no-repeat center / cover fixed;
   block-size: auto;
   min-inline-size: 375px;
@@ -78,7 +78,7 @@ li>.title-decor {
 }
 
 .link:hover {
-  border-block-end: 1px solid var(--text-color);
+  border-block-end: 1px solid currentColor;
 }
 
 .link:focus {
@@ -86,7 +86,7 @@ li>.title-decor {
 }
 
 .link:focus-visible {
-  outline: 1px solid var(--text-color);
+  outline: 1px solid currentColor;
 }
 
 /* header */
@@ -100,21 +100,20 @@ li>.title-decor {
 
 .header__rec {
   position: absolute;
-  width: 70px;
   color: var(--accent-color);
   font-weight: 400;
   font-size: 18px;
   font-style: normal;
   line-height: 25px;
   inset-block-start: 10px;
-  inset-inline-end: 1px;
+  inset-inline-end: 39px;
 }
 
 .header__rec::after {
   content: '';
   position: absolute;
   top: 8px;
-  right: 19px;
+  left: 42px;
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -141,7 +140,7 @@ li>.title-decor {
   background-color: transparent;
   cursor: pointer;
   inline-size: 70px;
-  block-size: 26px;
+  min-block-size: 26px;
 }
 
 .header__theme-menu-button:focus {
@@ -149,7 +148,7 @@ li>.title-decor {
 }
 
 .header__theme-menu-button:focus-visible {
-  border-bottom: 1px solid var(--accent-color);
+  border-bottom: 1px solid currentColor;
 }
 
 .header__theme-menu-button:hover {
@@ -157,7 +156,7 @@ li>.title-decor {
 }
 
 .header__theme-menu-button_active {
-  border: 1px solid var(--accent-color);
+  border: 1px solid currentColor;
   pointer-events: none;
 }
 
@@ -177,7 +176,8 @@ li>.title-decor {
   list-style: none;
 }
 
-.content__list li:not(:last-of-type) {
+.section-why .content__list li:not(:last-of-type),
+.section-how .content__list li:not(:last-of-type) {
   margin-block-end: 20px;
 }
 
@@ -226,16 +226,7 @@ li>.title-decor {
 
   .header__rec {
     inset-block-start: 20px;
-    inset-inline-end: 11px;
-  }
-
-  .header__theme-menu {
-    justify-self: center;
-    align-self: start;
-  }
-
-  .header__theme-menu-list {
-    display: flex;
+    inset-inline-end: 48px;
   }
 
   .header .title {
@@ -256,15 +247,19 @@ li>.title-decor {
     margin-block-end: 60px;
   }
 
+  .content {
+    margin: 0 0 80px;
+  }
+
   .content__list {
     margin-block-start: 0px;
   }
 
-  /* section-why, section-how */
-  .section-why,
-  .section-how {
+  /* content-identical-style */
+  .content-identical-style {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    gap: var(--main-gap);
   }
 
   /* section-what */
@@ -272,15 +267,25 @@ li>.title-decor {
     width: calc((100% - 40px) / 3);
   }
 
+  .section-what .title-decor {
+    margin-block-start: 20px;
+  }
+
   /* section-how */
   .section-how__description {
+    min-width: 100%;
     margin-block-start: 0;
+    margin-block-end: 20px;
   }
 
   /* section-gallery */
+  .section-gallery .title-decor {
+    min-width: 100%;
+  }
+
   .section-gallery__images {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, calc((100% - 40px) / 3));
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
   }
 
   .section-gallery__img:first-of-type {
@@ -309,35 +314,16 @@ li>.title-decor {
   }
 }
 
-@media (1024px > width >=768px) {
-  .content {
-    margin: 0 0 80px;
-  }
-
-  /* section-why, section-how */
-  .section-why,
-  .section-how {
-    gap: var(--main-gap);
-  }
-
-  /* section-what */
-  .section-what .title-decor {
-    margin-block-start: 20px;
-  }
-
-  /* section-how */
-  .section-how__description {
-    min-width: 100%;
-    margin-block-end: 20px;
-  }
-
-  /* section-gallery */
-  .section-gallery .title-decor {
-    min-width: 100%;
-  }
-}
-
 @media (width >=1024px) {
+  .header__theme-menu {
+    justify-self: center;
+    align-self: start;
+  }
+
+  .header__theme-menu-list {
+    display: flex;
+  }
+
   .header__theme-menu-item:not(:last-child) {
     margin-right: 10px;
   }
@@ -346,14 +332,18 @@ li>.title-decor {
     margin: 0 0 70px;
   }
 
-  /* section-why */
-  .section-why {
+  /* content-identical-style */
+  .content-identical-style {
     gap: 10px;
   }
 
   /* section-what */
   .section-what {
     padding: 10px 20px 0;
+  }
+
+  .section-what .title-decor {
+    margin-block-start: 0;
   }
 
   .section-what .content__list {
@@ -365,11 +355,6 @@ li>.title-decor {
 
   /* section-how */
   .section-how {
-    gap: 10px;
     padding: 10px 20px;
-  }
-
-  .section-how .content__list {
-    padding-block-start: 20px;
   }
 }
